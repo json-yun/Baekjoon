@@ -27,7 +27,7 @@ class Stack:
 def main() -> None:
     stack = Stack()
 
-    answer = ['0' for _ in range(N)]
+    answer = ['0'] * N
     stack.push(A[N-1], N-1)
     for i in range(N-2, -1, -1):
         while (stack.last is not None) and stack.last <= A[i]:
