@@ -1,8 +1,10 @@
 import sys
 sys.setrecursionlimit(100000)
+from random import shuffle
 
 N = int(input())
 numbers = [int(sys.stdin.readline()) for _ in range(N)]
+shuffle(numbers)
 
 def arg_median(*args :int) -> int:
     temp = []
