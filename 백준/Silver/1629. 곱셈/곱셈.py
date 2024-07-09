@@ -24,7 +24,6 @@ def main() -> None:
         return quotient
     cache = {0: 1,
              1: A%C}
-    cache = {i: _find_remainder(A, i, C) for i in range(10000)}
     print(_find_remainder(A, B, C))
 
 main()
