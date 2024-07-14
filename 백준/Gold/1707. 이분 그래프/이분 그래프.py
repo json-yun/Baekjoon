@@ -1,5 +1,5 @@
 import sys
-from queue import Queue
+from collections import deque
 
 input = sys.stdin.readline
 
@@ -14,17 +14,17 @@ def main() -> None:
     def bfs(n: int) -> bool:
         all_vertexes = set([i for i in range(1, n+1)])
         visited = set()
-        q = Queue()
+        q = deque()
         while len(visited) < n:
             start = (all_vertexes - visited).pop()
-            q.put(start)
+            q.append(start)
             vertexes[start].value = 0
-            while not q.empty():
-                v = q.get()
+            while len(q):
+                v = q.popleft()
                 visited.add(v)
                 for i in vertexes[v].conn:
                     if i not in visited:
-                        q.put(i)
+                        q.append(i)
                         if vertexes[i].value is None:
                             vertexes[i].value = (vertexes[v].value + 1) % 2
                         elif vertexes[i].value == vertexes[v].value:
