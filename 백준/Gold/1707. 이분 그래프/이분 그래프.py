@@ -16,8 +16,9 @@ def main() -> None:
         visited = set()
         q = deque()
         for start in range(1, n+1):
-            q.append(start)
-            vertexes[start].value = 0
+            if start not in visited:
+                q.append(start)
+                vertexes[start].value = 0
             while q:
                 v = q.popleft()
                 if v not in visited:
