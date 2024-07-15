@@ -7,21 +7,20 @@ class Vertex:
     def __init__(self, key: int) -> None:
         self.key = key
         self.value = None
-        self.conn = []
+        self.conn = [] # connected to _
+
 
 def main() -> None:
     def bfs(n: int) -> bool:
+        # all_vertexes = set(range(1, n+1))
         visited = set()
         q = deque()
-        
-        for start in range(1, n + 1):
-            if start not in visited:
-                q.append(start)
-                vertexes[start].value = 0
-                while q:
-                    v = q.popleft()
-                    if v in visited:
-                        continue
+        for start in range(1, n+1):
+            q.append(start)
+            vertexes[start].value = 0
+            while q:
+                v = q.popleft()
+                if v not in visited:
                     visited.add(v)
                     for i in vertexes[v].conn:
                         if vertexes[i].value is None:
@@ -30,17 +29,16 @@ def main() -> None:
                         elif vertexes[i].value == vertexes[v].value:
                             return False
         return True
-
+    
     N = int(input())
     for _ in range(N):
-        V, E = map(int, input().split())
+        V, E  = map(int, input().split())
         A = [tuple(map(int, input().split())) for _ in range(E)]
-        vertexes = {i: Vertex(i) for i in range(1, V + 1)}
+        vertexes = {i: Vertex(i) for i in range(1, V+1)}
         for a, b in A:
             vertexes[a].conn.append(b)
             vertexes[b].conn.append(a)
-
+        
         print("YES" if bfs(V) else "NO")
-
-if __name__ == "__main__":
-    main()
+        
+main()
