@@ -1,4 +1,5 @@
 import sys
+sys.setrecursionlimit(10**6)
 
 input = sys.stdin.readline
 
@@ -10,29 +11,34 @@ class Vertex:
 
 N = int(input())
 vertexes: dict[int, Vertex] = {}
+outside = []
+result = 0
+visited = [0]*(N+1)
 for i, v in enumerate(list(input().rstrip()), 1):
     vertexes[i] = Vertex(i, int(v))
+    if v == '0':
+        outside.append(i)
 for _ in range(N-1):
     a, b = map(int, input().split())
     vertexes[a].conn.append(b)
     vertexes[b].conn.append(a)
+    if vertexes[a].value + vertexes[b].value == 2:
+        result += 2
 
-cache: dict[int, list] = {i: [] for i in range(1, N+1)}
-visited = []
-def dfs(start: int, v: Vertex) -> None:
-    if v.key != start and v.value == 1:
-        cache[start].append(v.key)
-        cache[v.key].append(start)
-    else:
-        for next in v.conn:
-            if next not in visited and next not in cache[start]:
-                dfs(start, vertexes[next])
+def dfs(now: int) -> None:
+    visited[now] = 1
+    n_inside = 0
+    for adj in vertexes[now].conn:
+        if vertexes[adj].value == 1:
+            n_inside += 1
+            visited[adj] = 1
+        elif not visited[adj]:
+            n_inside += dfs(adj)
+    return n_inside
+        
+for i in outside:
+    if not visited[i]:
+        n = dfs(i)
+        result += n * (n-1)
 
-for i in range(1, N+1):
-    if vertexes[i].value == 0:
-        continue
-    visited.append(i)
-    dfs(i, vertexes[i])
-    print(cache)
-
-print(sum(map(len, cache.values())))
+print(result)
