@@ -1,56 +1,52 @@
 import sys
-from collections import deque
-
 input = sys.stdin.readline
 
-def main() -> None:
-    def check_4way(i: int, j: int) -> list[tuple[int, int]]:
-        di = (1, 0, 0, -1)
-        dj = (0, 1, -1, 0)
-        result = []
-        
-        for d in range(4):
-            curr_i, curr_j = i+di[d], j+dj[d]
-            if 0<=curr_i<N and 0<=curr_j<N and A[curr_i][curr_j] == '1':
-                A[curr_i][curr_j] = '0'
-                result.append((curr_i, curr_j))
-    
-        return result
-    
-    def count_home(i: int, j: int) -> int:
-        q = deque()
-        q.append((i, j))
-        cnt = 0
-        A[i][j] = '0'
-        
-        while q:
-            curr_i, curr_j = q.popleft()
-            cnt += 1
-            for next in check_4way(curr_i, curr_j):
-                q.append(next)
-                
-        return cnt
-    
-    def find_new_home() -> tuple[int, int] | None:
-        for i in range(N):
-            for j in range(N):
-                if A[i][j] == '1':
-                    return (i, j)
-                
-        return None
-    
-    N = int(input())
-    A = [list(input().rstrip()) for _ in range(N)]
+# 지도 한 변 크기 N
+N = int(input())
+apt = [[] for _ in range(N)]
+for i in range(N):
+    buildings = input().strip()
+    for building in buildings:
+        apt[i].append(building)
 
-    cnt = 0
-    cnt_n_home = []
-    while next:=find_new_home():
-        cnt += 1
-        cnt_n_home.append(count_home(*next))
-    
-    cnt_n_home.sort()
+
+# 지도 순회 돌리면서
+# visitied에 체크 안돼있으면 dfs 시작
+# dfs 돌면서 visitied에 체크 싹 다 때린 후에
+# dfs 끝나면 cnt += 1
+
+visitied = [[] for _ in range(N)] 
+for i in range(N):
+    for j in range(N):
+        visitied[i].append('0')
+
+def dfs(i,j):
+    global cnt
+    cnt += 1
+    visitied[i][j] = '1'
+    di = [1,-1,0,0]
+    dj = [0,0,1,-1]
+
+    for k in range(4):
+        i_udlr, j_udlr = i+di[k], j+dj[k]
+        if 0 <= i_udlr < N and 0 <= j_udlr < N:
+            if apt[i_udlr][j_udlr] == '1':
+                if visitied[i_udlr][j_udlr] == '0':
+                    visitied[i_udlr][j_udlr] = '1'
+                    dfs(i_udlr,j_udlr)
+    return cnt
+
+cnt_list = []
+total_group = 0
+
+for i in range(N):
+    for j in range(N):
+        if apt[i][j] == '1' and visitied[i][j] == '0':
+            cnt = 0
+            total_group += 1
+            cnt_list.append(dfs(i,j))
+
+print(total_group)
+cnt_list.sort()
+for cnt in cnt_list:
     print(cnt)
-    print(*cnt_n_home, sep="\n")
-
-if __name__ == "__main__":
-    main()
