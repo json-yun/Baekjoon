@@ -1,8 +1,2 @@
-A = input().rstrip().split('-')
-B = []
-for a in A:
-    B.append(sum(map(int, a.split('+'))))
-result = B[0]
-for i in range(1, len(B)):
-    result -= B[i]
-print(result)
+A=[sum(int(i) for i in a.split('+')) for a in input().strip().split('-')]
+print(2*A[0]-sum(A))
