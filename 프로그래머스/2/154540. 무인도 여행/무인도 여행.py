@@ -4,6 +4,7 @@ def solution(maps):
     maps = [list(x) for x in maps]
     N = len(maps)
     M = len(maps[0])
+    
     for i in range(N):
         for j in range(M):
             if maps[i][j] != 'X':
@@ -20,4 +21,5 @@ def solution(maps):
     answer.sort()
     if not answer:
         answer = [-1]
+        
     return answer
