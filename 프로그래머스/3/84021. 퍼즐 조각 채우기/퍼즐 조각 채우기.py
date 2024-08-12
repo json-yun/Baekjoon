@@ -44,8 +44,7 @@ def solution(game_board, table):
     
     answer = 0
     
-    places = [normalize(p) for p in bfs(game_board, find=0)]
-    places = [[p, 1] for p in places]
+    places = [[normalize(p), 1] for p in bfs(game_board, 0)]
     
     for _ in range(4):
         for puzzle in bfs(table):
