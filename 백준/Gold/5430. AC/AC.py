@@ -15,8 +15,6 @@ def main() -> None:
         for inst in INST:
             if inst == 'D':
                 N -= 1
-                if N < 0:
-                    break
                 if not inv:
                     d_count += 1
             else:
