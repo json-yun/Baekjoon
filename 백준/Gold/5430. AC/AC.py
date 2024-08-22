@@ -11,15 +11,14 @@ def main() -> None:
         if (N := N-INST.count('D')) < 0:
             print("error")
             continue
-
+        
         d = 0
         inv = False
         for inst in INST:
-            if inst == 'D':
-                if not inv:
-                    d += 1
-            else:
+            if inst == 'R':
                 inv = not inv
+            elif not inv:
+                d += 1
 
         ARR = ARR[d:d+N]
         if inv:
