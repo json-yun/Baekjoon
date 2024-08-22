@@ -21,7 +21,7 @@ def main() -> None:
         if N >= 0:
             ARR = ARR[d_count:d_count+N]
             if inv:
-                ARR.reverse()
+                ARR = reversed(ARR)
             answer = '[' + ','.join(ARR) + ']'
 
             print(answer)
