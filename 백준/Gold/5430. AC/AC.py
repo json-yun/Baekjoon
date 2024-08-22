@@ -2,9 +2,9 @@ def main() -> None:
     TC = int(input())
 
     for _ in range(TC):
-        INST = input().rstrip()
+        INST = input()
         N = int(input())
-        ARR = [i for i in input().strip('[]').split(',')]
+        ARR = input().strip('[]').split(',')
 
         if INST.count('D') > N:
             print("error")
