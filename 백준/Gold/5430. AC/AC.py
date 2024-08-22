@@ -1,26 +1,27 @@
+import sys
+input = sys.stdin.readline
+
 def main() -> None:
     TC = int(input())
-
     for _ in range(TC):
-        INST = input()
+        INST = input().rstrip()
         N = int(input())
-        ARR = input().strip('[]').split(',')
+        ARR = input().rstrip().strip('[]').split(',')
 
-        if INST.count('D') > N:
+        if (N := N-INST.count('D')) < 0:
             print("error")
             continue
 
-        d_count = 0
+        d = 0
         inv = False
         for inst in INST:
             if inst == 'D':
-                N -= 1
                 if not inv:
-                    d_count += 1
+                    d += 1
             else:
                 inv = not inv
 
-        ARR = ARR[d_count:d_count+N]
+        ARR = ARR[d:d+N]
         if inv:
             ARR = reversed(ARR)
         print('[' + ','.join(ARR) + ']')
