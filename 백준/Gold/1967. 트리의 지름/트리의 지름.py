@@ -5,7 +5,6 @@ input = sys.stdin.readline
 
 def main():
     N = int(input())
-    # is_leaf = [0] + [1]*(N)
     childs = [{}] + [{} for _ in range(N)]
     parents = [None] + [None for _ in range(N)]
     level = [0]*(N+1)
@@ -16,12 +15,13 @@ def main():
         childs[p][c] = w
         parents[c] = p
         level[c] = level[p] + 1
-        max_level = max(max_level, level[c])
+        max_level = max_level if max_level >= level[c] else level[c]
 
-    while max_level >= 0:
-        q = [i for i in range(1, N+1) if level[i] == max_level]
-        max_level -= 1
+    level_dict = {i: [] for i in range(max_level+1)}
+    for i in range(1, N+1):
+        level_dict[level[i]].append(i)
         
+    for q in reversed(level_dict.values()):
         for i in q:
             if parents[i] is None:
                 break
