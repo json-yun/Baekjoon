@@ -20,7 +20,7 @@ def main():
     cnt = 0
     i = 0
     while curr <= 334:
-        if i < len(flowers) and flowers[i][0] <= curr and temp <= 334:
+        if i < len(flowers) and flowers[i][0] <= curr:
             if flowers[i][1] > temp:
                 temp = flowers[i][1]
             i += 1
