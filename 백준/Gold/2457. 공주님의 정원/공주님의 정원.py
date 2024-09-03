@@ -4,8 +4,9 @@ input = sys.stdin.readline
 
 def main():
     N = int(input())
-    m_to_d = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    m_to_d = [sum(m_to_d[:i]) for i in range(13)]
+    # m_to_d = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    # m_to_d = [sum(m_to_d[:i]) for i in range(13)]
+    m_to_d = [0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
 
     flowers = []
     for _ in range(N):
