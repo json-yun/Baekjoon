@@ -1,6 +1,6 @@
 import sys
 
-sys.setrecursionlimit(1000000)
+sys.setrecursionlimit(200000)
 input = sys.stdin.readline
 
 def main():
@@ -8,7 +8,6 @@ def main():
         result = 1
         for child in childs[n]:
             if child != p:
-                visited[child] = 1
                 result += dfs(child, n)
         
         cache[n] = result
@@ -22,8 +21,6 @@ def main():
         childs[p].append(c)
         childs[c].append(p)
         
-    visited = [0] * (N+1)
-    visited[R] = 1
     cache = {}
 
     dfs(R, 0)
