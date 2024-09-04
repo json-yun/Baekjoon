@@ -15,7 +15,7 @@ def main():
     
     N, R, Q = map(int, input().split())
 
-    childs = {i: [] for i in range(1, N+1)}
+    childs = [[] for _ in range(N+1)]
     for _ in range(N-1):
         p, c = map(int, input().split())
         childs[p].append(c)
