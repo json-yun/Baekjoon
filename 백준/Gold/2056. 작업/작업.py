@@ -18,7 +18,7 @@ def main() -> None:
     
     N = int(input())
     TASKS: dict[int, list] = {}
-    postwork = {i: [] for i in range(1, N+1)}
+    postwork = [[] for _ in range(N+1)]
     for i in range(1, N+1):
         burst, n_prior, *P = map(int, input().split())
         TASKS[i] = [n_prior, burst, P]
@@ -31,8 +31,6 @@ def main() -> None:
     while p:=find_next_task():
         schedule(p)
     while TASKS:
-        # if next := find_next_task():
-        # else:
         clock, task_end = time_table.get()
         TASKS.pop(task_end)
         for p in postwork[task_end]:
