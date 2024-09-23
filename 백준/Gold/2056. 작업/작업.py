@@ -21,7 +21,7 @@ def main() -> None:
     postwork = [[] for _ in range(N+1)]
     for i in range(1, N+1):
         burst, n_prior, *P = map(int, input().split())
-        TASKS[i] = [n_prior, burst, P]
+        TASKS[i] = [n_prior, burst]
         for p in P:
             postwork[p].append(i)
     scheduled = [False for _ in range(N+1)]
