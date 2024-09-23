@@ -3,15 +3,6 @@ from queue import PriorityQueue
 input = sys.stdin.readline
 
 def main() -> None:
-    def find_next_task() -> int:
-        for i in TASKS:
-            if scheduled[i]:
-                continue
-            if TASKS[i][0] == 0:
-                return i
-
-        return 0
-
     def schedule(task: int) -> None:
         time_table.put((clock+TASKS[p][1], p)) # (end_time, task)
         scheduled[p] = True
@@ -28,8 +19,9 @@ def main() -> None:
 
     clock = 0
     time_table = PriorityQueue()
-    while p:=find_next_task():
-        schedule(p)
+    for p in TASKS:
+        if TASKS[p][0] == 0:
+            schedule(p)
     while TASKS:
         clock, task_end = time_table.get()
         TASKS.pop(task_end)
