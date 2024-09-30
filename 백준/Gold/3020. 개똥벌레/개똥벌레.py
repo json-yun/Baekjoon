@@ -1,5 +1,4 @@
 import sys
-import test
 input = sys.stdin.readline
 
 def main() -> None:
