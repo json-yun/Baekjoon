@@ -4,16 +4,17 @@ input = sys.stdin.readline
 
 def main() -> None:
     N, P = map(int, input().split())
-    stack = [[0] for _ in range(7)]
+    stacks = [[0] for _ in range(7)]
 
     cnt = 0
     for _ in range(N):
         i, p = map(int, input().split())
-        while stack[i][-1] > p:
-            stack[i].pop()
+        stack = stacks[i]
+        while stack[-1] > p:
+            stack.pop()
             cnt += 1
-        if stack[i][-1] < p:
-            stack[i].append(p)
+        if stack[-1] < p:
+            stack.append(p)
             cnt += 1
 
     print(cnt)
