@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def cross_product(vectors: list[tuple]) -> float:
     inner = 0
     outer = 0
