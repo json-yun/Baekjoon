@@ -1,32 +1,32 @@
 import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10**6)
 
-def make_edge(x: str | int, 
-              y: str | int, 
-              weight: str | int) -> tuple[int, tuple[int]]:
-    return (int(weight), (min(int(x), int(y)), max(int(x), int(y))))
+V, E = map(int, input().split())
+graph: list[tuple] = []
 
-def main() -> None:
-    def find_parent(i: int) -> int:
-        while parents[i] != i:
-            i = parents[i]
-        return i
-    
-    V, E = [int(i) for i in sys.stdin.readline().split()]
-    EDGES = sorted([make_edge(*sys.stdin.readline().split()) for _ in range(E)], key=lambda x: x[0], reverse=True)
+for _ in range(E):
+    a, b, weight = map(int, input().split())
+    graph.append((a, b, weight))
 
-    parents = {i: i for i in range(1, V+1)}
-    min_weight = 0
-    count = 1
-    while count < V:
-        weight, e = EDGES.pop()
-        if (p0:=find_parent(e[0])) != (p1:=find_parent(e[1])):
-            count += 1
-            min_weight += weight
-            parents[p1] = p0
-            parents[e[0]] = p0
-        elif e[0] == e[1] and weight < 0:
-            min_weight += weight
+graph.sort(key=lambda x: x[2])
 
-    print(min_weight)
+tree = {i: i for i in range(1, V+1)} # dict[vertex, parent]
+def find_root(v):
+    if tree[v] != v:
+        tree[v] = find_root(tree[v]) # 경로압축
 
-main()
+    return tree[v]
+        
+total = 0
+cnt = 0
+for a, b, weight in graph:
+    if cnt >= V-1:
+        break
+    if (p_a:=find_root(a)) != (p_b:=find_root(b)):
+        # 부분트리의 루트를 비교한다.
+        tree[max(p_a, p_b)] = min(p_a, p_b)
+        total += weight
+        cnt += 1
+
+print(total)
