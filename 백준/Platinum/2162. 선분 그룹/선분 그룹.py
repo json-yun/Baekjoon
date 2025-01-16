@@ -46,9 +46,8 @@ for i in range(N):
     x1, y1, x2, y2 = map(int, input().split())
     lines.append((x1, y1, x2, y2) if x1 <= x2 else (x2, y2, x1, y1))
     
-lines.sort(key=lambda x: x[0])
+lines.sort()
 
-border = 0
 parents = [i for i in range(N)]
 for i in range(N):
     for j in range(i):
@@ -57,7 +56,7 @@ for i in range(N):
         if intersection(lines[i], lines[j]):
             p_i = find_parent(i)
             p_j = find_parent(j)
-            parents[p_i] = parents[p_j] = min(p_i, p_j)
+            parents[max(p_i, p_j)] = min(p_i, p_j)
 
 groups = defaultdict(int)
 for i in range(N):
