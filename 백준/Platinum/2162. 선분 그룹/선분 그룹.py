@@ -16,18 +16,14 @@ def dot_on_line(dot, line):
 def intersection(l1, l2):
     x1, y1, x2, y2 = l1
     x3, y3, x4, y4 = l2
-    v1 = x1, y1
-    v2 = x2, y2
-    v3 = x3, y3
-    v4 = x4, y4
+    
+    v1, v2, v3, v4 = (x1, y1), (x2, y2), (x3, y3), (x4, y4)
 
-    ccw1 = ccw(v1, v2, v3)
-    ccw2 = ccw(v1, v2, v4)
-    ccw3 = ccw(v3, v4, v1)
-    ccw4 = ccw(v3, v4, v2)
+    ccw1 = ccw(v1, v2, v3) * ccw(v1, v2, v4)
+    ccw2 = ccw(v3, v4, v1) * ccw(v3, v4, v2)
 
-    if ccw1 * ccw2 <= 0 and ccw3 * ccw4 <= 0:
-        if ccw1 * ccw2 < 0 or ccw3 * ccw4 < 0:
+    if ccw1 <= 0 and ccw2 <= 0:
+        if ccw1 < 0 or ccw2 < 0:
             return True
         if dot_on_line(v3, v1+v2) or dot_on_line(v4, v1+v2) or dot_on_line(v1, v3+v4) or dot_on_line(v2, v3+v4):
             return True
