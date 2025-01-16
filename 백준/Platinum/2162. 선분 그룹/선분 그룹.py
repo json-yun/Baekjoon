@@ -52,6 +52,8 @@ border = 0
 parents = [i for i in range(N)]
 for i in range(N):
     for j in range(i):
+        if lines[j][2] < lines[i][0]:
+            continue
         if intersection(lines[i], lines[j]):
             p_i = find_parent(i)
             p_j = find_parent(j)
