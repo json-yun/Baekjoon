@@ -46,7 +46,7 @@ for i in range(N):
     x1, y1, x2, y2 = map(int, input().split())
     lines.append((x1, y1, x2, y2) if x1 <= x2 else (x2, y2, x1, y1))
     
-lines.sort(key=lambda x: (x[2], x[0]))
+lines.sort(key=lambda x: x[0])
 
 border = 0
 parents = [i for i in range(N)]
