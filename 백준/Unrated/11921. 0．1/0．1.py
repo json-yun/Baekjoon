@@ -5,19 +5,33 @@ import os
 input = sys.stdin.readline
 print = sys.stdout.write
 
-s = time.time()
-n = 0
-total = 0
-fd = 0
-a, _, b = os.read(fd, 20000).decode('utf-8').rpartition('\n')
-m = map(int, a.split())
-N = int(m.__next__())
-for i, n in enumerate(m):
-    if time.time() > s + 0.1:
-        break
-    total += n
-else:
-    i += 1
+def main():
+    s = time.time()
+    n = 0
+    total = 0
+    fd = 0
+    byte = 10000
+    a, _, b = os.read(fd, byte).decode('utf-8').rpartition('\n')
+    list_a = a.split()
+    m = map(int, list_a)
+    m.__next__()
+    for i, n in enumerate(m, 1):
+        total += n
+        if time.time() > s + 0.9:
+            break
 
-print(str(i) + '\n')
-print(str(total))
+    while time.time() < s + 0.07:
+        temp = b
+        a, _, b = os.read(fd, byte).decode('utf-8').rpartition('\n')
+        a = temp + a
+        list_a = a.split()
+        m = map(int, list_a)
+        for i, n in enumerate(m, i+1):
+            total += n
+            if time.time() > s + 0.9:
+                break
+
+    print(str(i) + '\n')
+    print(str(total))
+
+main()
