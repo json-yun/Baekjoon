@@ -17,6 +17,8 @@ def main():
     total += sum(m)
 
     while time.perf_counter() < s + 0.094:
+        if a == '':
+            break
         temp = b
         a, _, b = os.read(0, 10000).decode('utf-8').rpartition('\n')
         a = temp + a
