@@ -1,16 +1,18 @@
 import time
 import sys
+import os
 
 input = sys.stdin.readline
 print = sys.stdout.write
 
-N = int(input())
 s = time.time()
 n = 0
 total = 0
-while time.time() < s + 0.099 and n < N:
+m = map(int,os.read(0, 3000000).decode('utf-8').split())
+N = int(m.__next__())
+while time.time() < s + 0.08 and n < N:
     n += 1
-    total += int(input())
+    total += int(m.__next__())
 
 print(str(n) + '\n')
 print(str(total))
