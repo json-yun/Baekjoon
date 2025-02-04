@@ -8,11 +8,16 @@ print = sys.stdout.write
 s = time.time()
 n = 0
 total = 0
-m = map(int,os.read(0, 3000000).decode('utf-8').split())
+fd = 0
+a, _, b = os.read(fd, 20000).decode('utf-8').rpartition('\n')
+m = map(int, a.split())
 N = int(m.__next__())
-while time.time() < s + 0.08 and n < N:
-    n += 1
-    total += int(m.__next__())
+for i, n in enumerate(m):
+    if time.time() > s + 0.1:
+        break
+    total += n
+else:
+    i += 1
 
-print(str(n) + '\n')
+print(str(i) + '\n')
 print(str(total))
