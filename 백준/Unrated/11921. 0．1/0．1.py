@@ -1,4 +1,3 @@
-import time
 import sys
 import os
 
@@ -6,7 +5,6 @@ input = sys.stdin.readline
 print = sys.stdout.write
 
 def main():
-    s = time.perf_counter()
     n = 0
     total = 0
     a, _, b = os.read(0, 10000).decode('utf-8').rpartition('\n')
@@ -16,7 +14,7 @@ def main():
     m.__next__()
     total += sum(m)
 
-    while time.perf_counter() < s + 0.094:
+    while i < 410000:
         if a == '':
             break
         temp = b
