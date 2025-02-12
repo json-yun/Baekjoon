@@ -14,11 +14,11 @@ def main():
     m.__next__()
     total += sum(m)
 
-    while i < 410000:
+    while i < 470000:
         if a == '':
             break
         temp = b
-        a, _, b = os.read(0, 10000).decode('utf-8').rpartition('\n')
+        a, _, b = os.read(0, 11500).decode('utf-8').rpartition('\n')
         a = temp + a
         list_a = a.split('\n')
         i += len(list_a)
