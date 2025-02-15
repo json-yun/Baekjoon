@@ -7,14 +7,14 @@ print = sys.stdout.write
 def main():
     n = 0
     total = 0
-    a, _, b = os.read(0, 10000).decode('utf-8').rpartition('\n')
+    a, _, b = os.read(0, 11500).decode('utf-8').rpartition('\n')
     list_a = a.split('\n')
     i = len(list_a) - 1
     m = map(int, list_a)
     m.__next__()
     total += sum(m)
 
-    while i < 470000:
+    while i < 480000:
         if a == '':
             break
         temp = b
